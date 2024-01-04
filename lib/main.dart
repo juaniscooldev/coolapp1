@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:coolapp1/pages/home.dart'; //need to add this package so the home
 //page is accessible from main
 

@@ -1,13 +1,33 @@
 //reference video: https://www.youtube.com/watch?v=D4nhaszNW4o
 
+import "package:coolapp1/models/category_models/category_models.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
   @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  List<CategoryModel> categories = [];
+
+  void getCategories() {
+    categories = CategoryModel.getCategories();
+  }
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   return getCategories();
+  // }
+
+  @override
   Widget build(BuildContext context) {
+    getCategories(); //fills list first
+
     return Scaffold(
       appBar: appBar(),
       backgroundColor: Colors.white,
@@ -35,8 +55,13 @@ class MyHomePage extends StatelessWidget {
           color: Colors.green,
           child: ListView.builder(
             //this will list all the items in the list
+            itemCount: categories.length,
             itemBuilder: (context, index) {
-              return Container();
+              return Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(color: categories[index].boxColor),
+              );
             },
           ),
         )
