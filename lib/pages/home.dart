@@ -1,6 +1,8 @@
 //reference video: https://www.youtube.com/watch?v=D4nhaszNW4o
 
 import "package:coolapp1/models/category_models/category_models.dart";
+import "package:coolapp1/models/category_models/diet_models.dart";
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -36,36 +38,79 @@ class _MyHomePageState extends State<MyHomePage> {
         const SizedBox(
           height: 40,
         ), //add some space from text field
-        const Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: Text(
-                "Category",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold),
-              ),
-            )
-          ],
+        categories_Title(),
+        SizedBox(
+          height: 25,
         ),
-        Container(
-          height: 150,
-          color: Colors.green,
-          child: ListView.builder(
-            //this will list all the items in the list
-            itemCount: categories.length,
-            itemBuilder: (context, index) {
-              return Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(color: categories[index].boxColor),
-              );
-            },
+        categories_Section()
+      ]),
+    );
+  }
+
+  Column categories_Title() {
+    return const Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: Text(
+            "Category",
+            style: TextStyle(
+                color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
           ),
         )
-      ]),
+      ],
+    );
+  }
+
+  Container categories_Section() {
+    return Container(
+      height: 100, //height of list
+      color: Colors.white,
+      child: ListView.separated(
+        //this will list all the items in the list
+
+        scrollDirection: Axis.horizontal, //list will scroll from left to right
+        separatorBuilder: (context, index) => const SizedBox(
+          width: 25,
+        ),
+        itemCount: categories.length,
+        itemBuilder: (context, index) {
+          return Container(
+            //height: 50,
+            width: 100,
+            decoration: BoxDecoration(
+              color: categories[index].boxColor.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                      color: Colors.white, shape: BoxShape.circle),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SvgPicture.asset(categories[index].iconPath),
+                  ),
+                ),
+                Text(
+                  categories[index].name,
+                  style: const TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
+                ),
+              ],
+            ),
+          );
+        },
+        padding: const EdgeInsets.only(
+          right: 10,
+          left: 10,
+        ),
+      ),
     );
   }
 
